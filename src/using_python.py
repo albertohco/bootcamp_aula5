@@ -3,7 +3,8 @@ from collections import defaultdict, Counter
 from tqdm import tqdm  # barra de progresso
 import time
 
-NUMERO_DE_LINHAS = 1_000_000_000
+NUMERO_DE_LINHAS = 1_000_000
+
 
 def processar_temperaturas(path_do_csv):
     # utilizando infinito positivo e negativo para comparar
@@ -18,8 +19,10 @@ def processar_temperaturas(path_do_csv):
         for row in tqdm(_reader, total=NUMERO_DE_LINHAS, desc="Processando"):
             nome_da_station, temperatura = str(row[0]), float(row[1])
             medicoes.update([nome_da_station])
-            minimas[nome_da_station] = min(minimas[nome_da_station], temperatura)
-            maximas[nome_da_station] = max(maximas[nome_da_station], temperatura)
+            minimas[nome_da_station] = min(
+                minimas[nome_da_station], temperatura)
+            maximas[nome_da_station] = max(
+                maximas[nome_da_station], temperatura)
             somas[nome_da_station] += temperatura
 
     print("Dados carregados. Calculando estatísticas...")
@@ -51,7 +54,8 @@ if __name__ == "__main__":
 
     end_time = time.time()  # Tempo de término
 
-    for station, metrics in resultados.items():
-        print(station, metrics, sep=': ')
+    # for station, metrics in resultados.items():
+    #    print(station, metrics, sep=': ')
 
-    print(f"\nProcessamento concluído em {end_time - start_time:.2f} segundos.")
+    print(f"\nProcessamento concluído em {
+          end_time - start_time:.2f} segundos.")
